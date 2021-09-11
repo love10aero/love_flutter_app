@@ -80,12 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [AddUser(), ShowUser()],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.youtube_searched_for), label: '1st'),
+          BottomNavigationBarItem(icon: Icon(Icons.whatshot), label: '2nd')
+        ],
+      ),
+    ); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
 
@@ -143,17 +145,35 @@ class _AddUserState extends State<AddUser> {
   }
 }
 
-class ShowUser extends StatelessWidget {
+class ShowUser extends StatefulWidget {
   const ShowUser({Key? key}) : super(key: key);
 
+  @override
+  _ShowUserState createState() => _ShowUserState();
+}
+
+class _ShowUserState extends State<ShowUser> {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
         child: Table(
+          border: TableBorder(
+              bottom: BorderSide(),
+              top: BorderSide(),
+              left: BorderSide(),
+              right: BorderSide()),
           children: [
-            TableRow(children: [Text('data'), Text('data2')]),
-            TableRow(children: [Text('data3'), Text('data4')])
+            TableRow(children: [
+              Center(child: Text('data')),
+              Center(child: Text('data2')),
+              Center(child: Text('data3')),
+            ]),
+            TableRow(children: [
+              Center(child: Text('data4')),
+              Center(child: Text('data5')),
+              Center(child: Text('data6')),
+            ])
           ],
         ),
       ),
