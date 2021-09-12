@@ -49,6 +49,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<Map<String, String>> dataset = [
+    {'name': 'Loveklk', 'surname': 'Singh', 'email': 'lovexd@gmail.com'},
+    {
+      'name': 'Paula',
+      'surname': 'Sorolla',
+      'email': 'paula_impostora@gmail.com'
+    },
+    {'name': 'David', 'surname': 'Duran', 'email': 'DDuxdran@gmail.com'},
+    {'name': 'Alejandra', 'surname': 'Lorenzo', 'email': 'Alexdhop@gmail.com'},
+    {'name': 'Jacob', 'surname': 'Cortes', 'email': 'Yexdicob@gmail.com'}
+  ];
 
   void _incrementCounter() {
     setState(() {
@@ -77,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: PageView(
-          children: [AddUser(), ShowUser()],
+          children: [AddUser(), ShowUser(dataset)],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -146,36 +157,43 @@ class _AddUserState extends State<AddUser> {
 }
 
 class ShowUser extends StatefulWidget {
-  const ShowUser({Key? key}) : super(key: key);
+  List<Map<String, String>> dataset = [];
+  ShowUser(this.dataset);
+  // const ShowUser({Key? key, Map<String, String> dataset = {}})
+  //     : super(key: key);
 
   @override
   _ShowUserState createState() => _ShowUserState();
 }
 
 class _ShowUserState extends State<ShowUser> {
+  final List<Map<String, String>> dataset = [];
+
+  @override
+  void initState() {
+    dataset.addAll(widget.dataset);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
         child: Table(
-          border: TableBorder(
-              bottom: BorderSide(),
-              top: BorderSide(),
-              left: BorderSide(),
-              right: BorderSide()),
-          children: [
-            TableRow(children: [
-              Center(child: Text('data')),
-              Center(child: Text('data2')),
-              Center(child: Text('data3')),
-            ]),
-            TableRow(children: [
-              Center(child: Text('data4')),
-              Center(child: Text('data5')),
-              Center(child: Text('data6')),
-            ])
-          ],
-        ),
+            border: TableBorder(
+                bottom: BorderSide(),
+                top: BorderSide(),
+                left: BorderSide(),
+                right: BorderSide()),
+            children: dataset
+                .map(
+                  (element) => TableRow(children: [
+                    Center(child: Text(element.values.toList()[0])),
+                    Center(child: Text(element.values.toList()[1])),
+                    Center(child: Text(element.values.toList()[2])),
+                  ]),
+                )
+                .toList()),
       ),
     );
   }
