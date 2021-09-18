@@ -1,0 +1,13 @@
+{
+  "pageHomeConfirm": "Confirm",
+  "emptyField": "Please enter some text",
+  "pageHomeWelcome": "Welcome {name}",
+  "pageHomeWelcomeGender": "{gender, select, male {Hi man!} female {Hi woman!} other {Hi there!}}",
+  "pageHomeWelcomeRole": "{role, select, admin {Hi admin!} manager {Hi manager!} other {Hi visitor!}}",
+  "pageNotificationsCount": "{howMany, plural, one{1 message} other{{howMany} messages}}",
+  "loveFlutterApptile": "Love Flutter App",
+  "titleApp": "title",
+  "nameUser": "Name *",
+  "ageUser": "Age *",
+  "emailUser": "Email"
+}

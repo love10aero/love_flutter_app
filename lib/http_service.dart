@@ -6,7 +6,7 @@ class HttpService {
   final String postsURL = "http://127.0.0.1:8000/generic/api";
 
   Future<List<Post>> getPosts() async {
-    Response res = await get(postsURL);
+    Response res = await get(Uri.parse(postsURL));
     // print(res);
 
     if (res.statusCode == 200) {

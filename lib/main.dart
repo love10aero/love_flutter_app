@@ -1,14 +1,9 @@
-// ignore: avoid_web_libraries_in_flutter
-// import 'dart:html';
-
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:love_flutter_app/http_service.dart';
 import 'package:love_flutter_app/post_model.dart';
-import 'package:love_flutter_app/posts.dart';
-import 'package:postgres/postgres.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,12 +20,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Love Flutter App',
+        title: S.of(context).loveFlutterApptile,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
           primarySwatch: Colors.yellow,
         ),
         home: PageView(
-          children: [MyHomePage(title: 'title')],
+          children: [MyHomePage(title: S.of(context).titleApp)],
         ));
   }
 }
@@ -182,7 +184,7 @@ class _AddUserState extends State<AddUser> {
               controller: myname,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return S.current.emptyField;
                 }
                 return null;
               },
@@ -195,7 +197,7 @@ class _AddUserState extends State<AddUser> {
               controller: mysurname,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return S.current.emptyField;
                 }
                 return null;
               },
@@ -225,8 +227,7 @@ class _AddUserState extends State<AddUser> {
                             'surname': mysurname.text,
                             'email': myemail.text
                           });
-                          var _futureAlbum =
-                              createPost(myname.text, mysurname.text);
+                          createPost(myname.text, mysurname.text);
                         }
                       });
                     },
