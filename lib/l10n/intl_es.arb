@@ -9,5 +9,6 @@
   "titleApp": "Título",
   "nameUser": "Nombre *",
   "ageUser": "Edad *",
-  "emailUser": "Email"
+  "emailUser": "Email",
+  "save": "Guardar"
 }

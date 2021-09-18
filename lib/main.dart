@@ -1,8 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
-// import 'dart:html';
-
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:love_flutter_app/http_service.dart';
@@ -61,24 +56,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final HttpService httpService = HttpService();
+  bool _languageButtonES = false;
 
   @override
   void initState() {
     S.load(Locale('en'));
     super.initState();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override
@@ -89,15 +73,38 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        child: PageView(
-          children: [AddUser()],
+      // body: Center(
+      //   child: PageView(
+      //     children: [AddUser()],
+      //   ),
+      // ),
+      body: Container(
+        child: Center(
+          child: Wrap(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _languageButtonES = !_languageButtonES;
+                      if (_languageButtonES) {
+                        S.load(Locale('es'));
+                      } else {
+                        S.load(Locale('en'));
+                      }
+                      print(_languageButtonES);
+                    });
+                  },
+                  child: _languageButtonES ? Text('ES') : Text('EN')),
+              AddUser()
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -163,9 +170,9 @@ class _AddUserState extends State<AddUser> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                labelText: 'Name *',
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.person),
+                labelText: S.of(context).nameUser,
               ),
             ),
             TextFormField(
@@ -176,23 +183,23 @@ class _AddUserState extends State<AddUser> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person_search),
-                labelText: 'Age *',
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.calendar_today),
+                labelText: S.of(context).ageUser,
               ),
             ),
             TextFormField(
               controller: myemail,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.email),
-                labelText: 'Email',
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email),
+                labelText: S.of(context).emailUser,
               ),
             ),
             Center(
               child: Container(
                 width: 500,
                 height: 50,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
                     onPressed: () {
                       var currentState = _formKey.currentState;
                       setState(() {
@@ -206,7 +213,8 @@ class _AddUserState extends State<AddUser> {
                         }
                       });
                     },
-                    child: Icon(Icons.save)),
+                    label: Text(S.of(context).save),
+                    icon: Icon(Icons.save)),
               ),
             ),
             FutureBuilder(

@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pageHomeWelcomeGender": m1,
         "pageHomeWelcomeRole": m2,
         "pageNotificationsCount": m3,
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "titleApp": MessageLookupByLibrary.simpleMessage("title")
       };
 }
