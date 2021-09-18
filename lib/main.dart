@@ -1,3 +1,8 @@
+// ignore: avoid_web_libraries_in_flutter
+// import 'dart:html';
+
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:love_flutter_app/http_service.dart';
@@ -20,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: S.of(context).loveFlutterApptile,
+        title: 'Love Flutter App',
         localizationsDelegates: [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -32,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.yellow,
         ),
         home: PageView(
-          children: [MyHomePage(title: S.of(context).titleApp)],
+          children: [MyHomePage(title: 'title')],
         ));
   }
 }
@@ -72,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    S.load(Locale('en'));
     FutureBuilder(
       future: httpService.getPosts(),
       builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
@@ -227,7 +233,8 @@ class _AddUserState extends State<AddUser> {
                             'surname': mysurname.text,
                             'email': myemail.text
                           });
-                          createPost(myname.text, mysurname.text);
+                          var _futureAlbum =
+                              createPost(myname.text, mysurname.text);
                         }
                       });
                     },
