@@ -63,38 +63,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   final HttpService httpService = HttpService();
-  List<Map<String, String>> dataset = [
-    {'name': 'Loveklk', 'surname': 'Singh', 'email': 'lovexd@gmail.com'},
-    {
-      'name': 'Paula',
-      'surname': 'Sorolla',
-      'email': 'paula_impostora@gmail.com'
-    },
-    {'name': 'David', 'surname': 'Duran', 'email': 'DDuxdran@gmail.com'},
-    {'name': 'Alejandra', 'surname': 'Lorenzo', 'email': 'Alexdhop@gmail.com'},
-    {'name': 'Jacob', 'surname': 'Cortes', 'email': 'Yexdicob@gmail.com'}
-  ];
 
   @override
   void initState() {
     S.load(Locale('en'));
-    FutureBuilder(
-      future: httpService.getPosts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
-        if (snapshot.hasData) {
-          List<Post>? posts = snapshot.data;
-          posts!.map((e) => dataset.add({
-                'name': e.test_char,
-                'surname': e.test_num.toString(),
-                'email': 'xd'
-              }));
-          print(dataset);
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
-    );
     super.initState();
   }
 
@@ -125,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: PageView(
-          children: [AddUser(dataset)],
+          children: [AddUser()],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -140,9 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class AddUser extends StatefulWidget {
-  List<Map<String, String>> dataset = [];
-  AddUser(this.dataset);
-
   // const AddUser({Key? key}) : super(key: key);
 
   @override
@@ -172,7 +141,7 @@ class _AddUserState extends State<AddUser> {
   void initState() {
     // var connection = PostgreSQLConnection("localhost", 5432, "ProjectY",
     //     username: "ERP_Team", password: "ERP_Tool_ProjectY");
-    dataset.addAll(widget.dataset);
+    // dataset.addAll(widget.dataset);
     super.initState();
   }
 
@@ -233,8 +202,7 @@ class _AddUserState extends State<AddUser> {
                             'surname': mysurname.text,
                             'email': myemail.text
                           });
-                          var _futureAlbum =
-                              createPost(myname.text, mysurname.text);
+                          createPost(myname.text, mysurname.text);
                         }
                       });
                     },
