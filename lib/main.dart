@@ -3,6 +3,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:love_flutter_app/posts.dart';
+import 'package:postgres/postgres.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +25,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.yellow,
         ),
-        home: MyHomePage(
-          title: 'Application users',
+        home: PageView(
+          children: [MyHomePage(title: 'title')],
         ));
   }
 }
@@ -88,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: PageView(
-          children: [AddUser(), ShowUser(dataset)],
+          children: [AddUser(dataset)],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -103,13 +105,40 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class AddUser extends StatefulWidget {
-  const AddUser({Key? key}) : super(key: key);
+  List<Map<String, String>> dataset = [];
+  AddUser(this.dataset);
+
+  // const AddUser({Key? key}) : super(key: key);
 
   @override
   _AddUserState createState() => _AddUserState();
 }
 
 class _AddUserState extends State<AddUser> {
+  final List<Map<String, String>> dataset = [];
+  // Create a text controller and use it to retrieve the current value
+  // of the TextField.
+  final myname = TextEditingController();
+  final mysurname = TextEditingController();
+  final myemail = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myname.dispose();
+    mysurname.dispose();
+    myemail.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    // var connection = PostgreSQLConnection("localhost", 5432, "ProjectY",
+    //     username: "ERP_Team", password: "ERP_Tool_ProjectY");
+    dataset.addAll(widget.dataset);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -119,18 +148,21 @@ class _AddUserState extends State<AddUser> {
       runSpacing: 20, // to apply margin in the cross axis of the wrap
       children: [
         TextFormField(
+          controller: myname,
           decoration: const InputDecoration(
             icon: Icon(Icons.person),
             labelText: 'Name *',
           ),
         ),
         TextFormField(
+          controller: mysurname,
           decoration: const InputDecoration(
             icon: Icon(Icons.person_search),
             labelText: 'Surname *',
           ),
         ),
         TextFormField(
+          controller: myemail,
           decoration: const InputDecoration(
             icon: Icon(Icons.email),
             labelText: 'Email *',
@@ -143,14 +175,36 @@ class _AddUserState extends State<AddUser> {
             child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    AlertDialog(
-                      actions: [Text('data')],
-                    );
+                    dataset.add({
+                      'name': myname.text,
+                      'surname': mysurname.text,
+                      'email': myemail.text
+                    });
+                    print(dataset);
                   });
                 },
                 child: Icon(Icons.save)),
           ),
         ),
+        Container(
+          child: Center(
+            child: Table(
+                border: TableBorder(
+                    bottom: BorderSide(),
+                    top: BorderSide(),
+                    left: BorderSide(),
+                    right: BorderSide()),
+                children: dataset
+                    .map(
+                      (element) => TableRow(children: [
+                        Center(child: Text(element.values.toList()[0])),
+                        Center(child: Text(element.values.toList()[1])),
+                        Center(child: Text(element.values.toList()[2])),
+                      ]),
+                    )
+                    .toList()),
+          ),
+        )
       ],
     )));
   }
