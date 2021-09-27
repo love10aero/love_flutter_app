@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:love_flutter_app/http_service.dart';
 import 'package:love_flutter_app/post_model.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:love_flutter_app/sidebars.dart';
 import 'generated/l10n.dart';
 
 void main() {
@@ -107,6 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      drawer: LeftSideDrawer(),
+      endDrawer: RightSideDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -209,7 +212,6 @@ class _AddUserState extends State<AddUser> {
                             'surname': mysurname.text,
                             'email': myemail.text
                           });
-                          createPost(myname.text, mysurname.text);
                         }
                       });
                     },
@@ -217,37 +219,6 @@ class _AddUserState extends State<AddUser> {
                     icon: Icon(Icons.save)),
               ),
             ),
-            FutureBuilder(
-              future: httpService.getPosts(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
-                if (snapshot.hasData) {
-                  List<Post>? posts = snapshot.data;
-                  return Container(
-                    child: Center(
-                      child: Table(
-                          border: TableBorder(
-                              bottom: BorderSide(),
-                              top: BorderSide(),
-                              left: BorderSide(),
-                              right: BorderSide()),
-                          children: posts!
-                              .map(
-                                (element) => TableRow(children: [
-                                  Center(child: Text(element.test_char)),
-                                  Center(
-                                      child: Text(element.test_num.toString())),
-                                  Center(child: Text(element.id.toString())),
-                                ]),
-                              )
-                              .toList()),
-                    ),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            )
           ],
         ))));
   }

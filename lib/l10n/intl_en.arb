@@ -10,5 +10,9 @@
   "nameUser": "Name *",
   "ageUser": "Age *",
   "emailUser": "Email",
-  "save": "Save"
+  "save": "Save",
+  "projectManagement": "Project Management",
+  "documents": "Documents",
+  "orders": "Orders",
+  "profile": "Profile"
 }

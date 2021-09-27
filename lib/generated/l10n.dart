@@ -179,6 +179,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Project Management`
+  String get projectManagement {
+    return Intl.message(
+      'Project Management',
+      name: 'projectManagement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documents`
+  String get documents {
+    return Intl.message(
+      'Documents',
+      name: 'documents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message(
+      'Orders',
+      name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

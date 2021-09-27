@@ -36,17 +36,22 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ageUser": MessageLookupByLibrary.simpleMessage("Edad *"),
+        "documents": MessageLookupByLibrary.simpleMessage("Documentos"),
         "emailUser": MessageLookupByLibrary.simpleMessage("Email"),
         "emptyField":
             MessageLookupByLibrary.simpleMessage("Porfavor, inserte texto"),
         "loveFlutterApptile":
             MessageLookupByLibrary.simpleMessage("Love Flutter Aplicación"),
         "nameUser": MessageLookupByLibrary.simpleMessage("Nombre *"),
+        "orders": MessageLookupByLibrary.simpleMessage("Pedidos"),
         "pageHomeConfirm": MessageLookupByLibrary.simpleMessage("Confirma"),
         "pageHomeWelcome": m0,
         "pageHomeWelcomeGender": m1,
         "pageHomeWelcomeRole": m2,
         "pageNotificationsCount": m3,
+        "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
+        "projectManagement":
+            MessageLookupByLibrary.simpleMessage("Gestión de proyectos"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
         "titleApp": MessageLookupByLibrary.simpleMessage("Título")
       };
